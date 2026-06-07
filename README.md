@@ -112,10 +112,11 @@ Atlas is currently under active development.
 * MVP planning
 * Frontend scaffold
 * Documentation
+* v0.1 Frontend
 
 ### In Progress
 
-* Frontend workspace interface
+* Refining Frontend/UI
 
 ### Planned
 
