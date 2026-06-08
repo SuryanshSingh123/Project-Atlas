@@ -1,17 +1,12 @@
-import Header from "./components/Header";
-import MissionCard from "./components/MissionCard";
-import PromptInput from "./components/PromptInput";
-
+import Workspace from "./components/Workspace";
+import Sidebar from "./components/Sidebar";
+import AgentPanel from "./components/AgentPanel";
 export default function Home() {
   return (
-    <main className="min-h-screen bg-zinc-950 text-white flex flex-col items-center justify-center px-6">
-
-      <Header />
-
-      <MissionCard />
-
-      <PromptInput />
-
+    <main className="flex min-h-screen bg-zinc-950 text-white">
+      <Sidebar />
+      <Workspace />
+      <AgentPanel />
     </main>
   );
 }
