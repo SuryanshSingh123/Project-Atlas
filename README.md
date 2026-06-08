@@ -2,7 +2,7 @@
 
 > **From idea to execution.**
 
-Atlas is an AI-powered Project Operating System that helps students, developers, founders, and builders transform ideas into structured execution plans.
+Atlas is an AI-powered Automation Platform/Assistant that helps students, developers, founders, and builders transform ideas into structured execution plans.
 
 Instead of acting like a traditional chatbot, Atlas coordinates a team of specialized AI agents that understand your goal, research the best approach, generate a roadmap, and guide you through building your project step by step.
 
