@@ -1,21 +1,57 @@
+"use client";
+
+import { useState } from "react";
+
 import Header from "./Header";
 import MissionCard from "./MissionCard";
 import PromptInput from "./PromptInput";
 
+export default function Workspace() {
+  async function submitMission() {
+    if (!prompt.trim()) return;
+    
+    console.log("Submitting:", prompt);
 
-export default function Workspace(){
-    return(
-        <section className="flex flex-1 flex-col p-10">
-            <Header />
+    const response = await fetch(
+        "http://localhost:3001/api/jobs",
+        {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            prompt,
+        }),
 
-            <div className="text-center">
-                <MissionCard />
-            </div>
-            <div className="mt-auto mb-1">
-                <PromptInput />
-            </div>
+        }
+  );
+  
+  const data = await response.json();
 
-        </section>
-        
-    );
+  console.log(data);
+  setCurrentMission(prompt);
+  setPrompt("");
+}
+  const [prompt, setPrompt] = useState("");
+  const [currentMission, setCurrentMission] = useState("");
+  
+  return (
+    <section className="flex flex-1 flex-col p-10">
+      <Header />
+
+      <div className="text-center">
+        <MissionCard mission={currentMission} />
+      </div>
+
+      <div className="mt-auto mb-1">
+      <PromptInput
+        value={prompt}
+        onChange={setPrompt}
+        onSubmit={submitMission}
+      />
+
+      </div>
+    </section>
+  );
+  
 }
