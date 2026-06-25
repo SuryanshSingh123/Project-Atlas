@@ -106,26 +106,32 @@ Atlas is currently under active development.
 
 ### Completed
 
-* Project vision
-* System architecture
-* API design
-* MVP planning
-* Frontend scaffold
-* Documentation
-* v0.1 Frontend
+- Project vision
+- System architecture
+- API design
+- MVP planning
+- Documentation
+- Frontend scaffold
+- v0.1 frontend workspace
+- Base backend API
+- Health endpoint
+- Job creation API (`POST /api/jobs`)
+- Job retrieval API (`GET /api/jobs/:id`)
+- Frontend ↔ Backend integration
 
 ### In Progress
 
-* Refining Frontend/UI
+- Frontend/UI refinement
+- Workspace state management
+- Job tracking and status display
 
 ### Planned
 
-* Backend API
-* AI agent orchestration
-* Persistent memory
-* User authentication
-* GitHub integration
-* Deployment
+- AI agent orchestration
+- Persistent memory
+- User authentication
+- GitHub integration
+- Deployment
 
 ---
 
