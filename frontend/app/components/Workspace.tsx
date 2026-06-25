@@ -30,17 +30,25 @@ export default function Workspace() {
 
   console.log(data);
   setCurrentMission(prompt);
+  setCurrentJobId(data.jobId);
+  setJobStatus(data.status);
   setPrompt("");
 }
   const [prompt, setPrompt] = useState("");
   const [currentMission, setCurrentMission] = useState("");
   
+  const [currentJobId, setCurrentJobId] = useState("");
+  const [jobStatus, setJobStatus] = useState("");
   return (
     <section className="flex flex-1 flex-col p-10">
       <Header />
 
       <div className="text-center">
-        <MissionCard mission={currentMission} />
+        <MissionCard 
+        mission={currentMission}
+        status={jobStatus}
+        jobID={currentJobId} 
+        />
       </div>
 
       <div className="mt-auto mb-1">
