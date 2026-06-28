@@ -2,9 +2,9 @@
 
 > **From idea to execution.**
 
-Atlas is an AI-powered Automation Platform/Assistant that helps students, developers, founders, and builders transform ideas into structured execution plans.
+Atlas is an AI-powered automation platform under active development that helps students, developers, founders, and builders transform ideas into structured execution plans.
 
-Instead of acting like a traditional chatbot, Atlas coordinates a team of specialized AI agents that understand your goal, research the best approach, generate a roadmap, and guide you through building your project step by step.
+Instead of acting like a traditional chatbot, Atlas aims to coordinate specialized AI agents that research, plan, organize, and guide users from an initial idea to a finished project.
 
 ---
 
@@ -27,7 +27,7 @@ Atlas bridges the gap between inspiration and execution by acting as an AI co-fo
 * 📝 Persistent project memory
 * 📈 Progress tracking
 * 🔗 GitHub integration *(planned)*
-* ⚡ n8n-powered workflow orchestration
+* ⚙️ Modular AI orchestration engine
 
 ---
 
@@ -38,21 +38,22 @@ User
    │
 Frontend (Next.js)
    │
-Backend API
+Backend API (Express)
    │
-n8n Workflow
+Job Manager
+   │
+Planner
+   │
+Agent Orchestrator
    │
 ├── Architect Agent
 ├── Research Agent
-└── Planner Agent
+├── Planner Agent
+└── Future Agents...
    │
-Merge Results
-   │
-Database
+Memory / Storage
    │
 Frontend Dashboard
-   │
-User
 ```
 
 ---
@@ -70,14 +71,18 @@ User
 
 * Node.js
 * REST API
+* Express
+* Typescript
 
-### Automation
+### Orchestration
 
-* n8n
+* Custom orchestration engine
 
-### AI
+### AI Providers (planned)
 
-* Multi-agent LLM orchestration
+* OpenRouter
+* Ollama
+* Gemini
 
 ### Storage
 
@@ -92,7 +97,6 @@ Project Atlas/
 
 ├── frontend/
 ├── backend/
-├── n8n/
 ├── docs/
 ├── README.md
 └── docker-compose.yml
@@ -118,6 +122,10 @@ Atlas is currently under active development.
 - Job creation API (`POST /api/jobs`)
 - Job retrieval API (`GET /api/jobs/:id`)
 - Frontend ↔ Backend integration
+- Job lifecycle simulation
+- Real-time frontend polling
+- Automatic job status synchronization
+- Dynamic workspace state management
 
 ### In Progress
 
@@ -127,10 +135,12 @@ Atlas is currently under active development.
 
 ### Planned
 
-- AI agent orchestration
+- AI planner
+- Multi-agent execution engine
 - Persistent memory
-- User authentication
 - GitHub integration
+- Provider abstraction (OpenRouter, Ollama, Gemini, etc.)
+- Authentication
 - Deployment
 
 ---
