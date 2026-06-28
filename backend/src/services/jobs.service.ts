@@ -11,7 +11,20 @@ export function createJob(prompt: string): Job {
   };
 
   jobs.set(job.id, job);
+  setTimeout(() => {
+  const currentJob = jobs.get(job.id);
 
+  if (!currentJob) return;
+
+  currentJob.status = "running";
+}, 2000);
+setTimeout(() => {
+  const currentJob = jobs.get(job.id);
+
+  if (!currentJob) return;
+
+  currentJob.status = "completed";
+}, 5000);
   return job;
 }
 

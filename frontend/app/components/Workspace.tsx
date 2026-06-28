@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Header from "./Header";
 import MissionCard from "./MissionCard";
@@ -36,9 +36,35 @@ export default function Workspace() {
 }
   const [prompt, setPrompt] = useState("");
   const [currentMission, setCurrentMission] = useState("");
-  
   const [currentJobId, setCurrentJobId] = useState("");
   const [jobStatus, setJobStatus] = useState("");
+
+  useEffect(() => {
+    if (!currentJobId) return;
+
+    async function pollJob() {
+      const response = await fetch(
+      `http://localhost:3001/api/jobs/${currentJobId}`
+      );
+      const job = await response.json();
+
+      console.log(job);
+      setJobStatus(job.status);
+
+      if (job.status === "completed") {
+        clearInterval(interval);
+      }
+    }
+
+    pollJob()
+    const interval = setInterval(() => {
+    pollJob();
+    }, 1000);
+
+    return () => {
+    clearInterval(interval);
+    };
+  }, [currentJobId]);
   return (
     <section className="flex flex-1 flex-col p-10">
       <Header />
@@ -47,7 +73,6 @@ export default function Workspace() {
         <MissionCard 
         mission={currentMission}
         status={jobStatus}
-        jobID={currentJobId} 
         />
       </div>
 
