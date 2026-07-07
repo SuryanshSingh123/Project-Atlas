@@ -1,13 +1,15 @@
 import type { Job } from "../models/job.js";
-
+import { generateTasks } from "./planner.service.js";
 const jobs = new Map<string, Job>();
 
-export function createJob(prompt: string): Job {
+export async function createJob(prompt: string): Promise<Job> {
+  const tasks = await generateTasks(prompt);
   const job: Job = {
     id: `job_${Date.now()}`,
     prompt,
     status: "queued",
     createdAt: new Date(),
+    tasks,
   };
 
   jobs.set(job.id, job);

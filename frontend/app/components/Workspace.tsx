@@ -38,6 +38,7 @@ export default function Workspace() {
   const [currentMission, setCurrentMission] = useState("");
   const [currentJobId, setCurrentJobId] = useState("");
   const [jobStatus, setJobStatus] = useState("");
+  const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     if (!currentJobId) return;
@@ -50,6 +51,7 @@ export default function Workspace() {
 
       console.log(job);
       setJobStatus(job.status);
+      setTasks(job.tasks);
 
       if (job.status === "completed") {
         clearInterval(interval);
@@ -71,8 +73,9 @@ export default function Workspace() {
 
       <div className="text-center">
         <MissionCard 
-        mission={currentMission}
-        status={jobStatus}
+          mission={currentMission}
+          status={jobStatus}
+          tasks={tasks}
         />
       </div>
 

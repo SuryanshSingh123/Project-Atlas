@@ -33,6 +33,7 @@ Atlas bridges the gap between inspiration and execution by acting as an AI co-fo
 
 ## 🏗️ High-Level Architecture
 
+
 ```text
 User
    │
@@ -42,20 +43,18 @@ Backend API (Express)
    │
 Job Manager
    │
-Planner
+Planner Service
    │
-Agent Orchestrator
+AI Service
    │
-├── Architect Agent
-├── Research Agent
-├── Planner Agent
-└── Future Agents...
+OpenRouter
    │
-Memory / Storage
+LLM
+   │
+Generated Roadmap
    │
 Frontend Dashboard
 ```
-
 ---
 
 ## 🛠️ Tech Stack
@@ -122,29 +121,33 @@ Atlas is currently under active development.
 - Job creation API (`POST /api/jobs`)
 - Job retrieval API (`GET /api/jobs/:id`)
 - Frontend ↔ Backend integration
-- Job lifecycle simulation
+- Job lifecycle management
 - Real-time frontend polling
 - Automatic job status synchronization
 - Dynamic workspace state management
+- AI service integration with OpenRouter
+- AI-powered project roadmap generation
+- Structured JSON task generation
+- AI-generated roadmap display in frontend
 
 ### In Progress
 
 - Frontend/UI refinement
-- Workspace state management
-- Job tracking and status display
+- Improved roadmap visualization
+- Job progress tracking
+- AI response validation and error handling
 
 ### Planned
 
-- AI planner
 - Multi-agent execution engine
-- Persistent memory
+- Specialized agents (Research, Architect, Reviewer, etc.)
+- Persistent project memory
 - GitHub integration
 - Provider abstraction (OpenRouter, Ollama, Gemini, etc.)
-- Authentication
+- User authentication
 - Deployment
 
 ---
-
 ## 🎯 Philosophy
 
 Atlas is built around a simple principle:

@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { createJob, getJob } from "../services/jobs.service.js";
 
-export function createJobHandler(
+export async function createJobHandler(
   req: Request,
   res: Response
 ) {
@@ -13,7 +13,7 @@ export function createJobHandler(
     });
   }
 
-  const job = createJob(prompt);
+  const job = await createJob(prompt);
 
   res.status(201).json({
     jobId: job.id,
