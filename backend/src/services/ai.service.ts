@@ -7,7 +7,7 @@ export async function createChatCompletion(
   if (!apiKey) {
     throw new Error("OPENROUTER_API_KEY is missing.");
   }
-    const model = process.env.OPENROUTER_MODEL ?? "openrouter/free";
+    const model = process.env.PLANNER_MODEL ?? "/openrouter/free";
   const response = await fetch(
   "https://openrouter.ai/api/v1/chat/completions",
   {

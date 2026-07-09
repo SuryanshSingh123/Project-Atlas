@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --atlas-bg: #090c14;
+  --atlas-bg-elevated: #0f1420;
+  --atlas-surface: #151c2c;
+  --atlas-surface-hover: #1c2538;
+  --atlas-surface-active: #232e45;
+  --atlas-border: #243044;
+  --atlas-border-subtle: #1a2333;
+  --atlas-text: #e8edf5;
+  --atlas-text-muted: #8b9cb3;
+  --atlas-text-faint: #5a6a82;
+  --atlas-accent: #c9954a;
+  --atlas-accent-bright: #e4b86a;
+  --atlas-accent-muted: rgba(201, 149, 74, 0.12);
+  --atlas-accent-glow: rgba(201, 149, 74, 0.25);
+  --atlas-success: #3ecf8e;
+  --atlas-info: #5b9fd4;
+  --atlas-warning: #e5b84a;
+  --atlas-user-bubble: #1e3a5f;
+  --atlas-assistant-bubble: #151c2c;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-atlas-bg: var(--atlas-bg);
+  --color-atlas-bg-elevated: var(--atlas-bg-elevated);
+  --color-atlas-surface: var(--atlas-surface);
+  --color-atlas-surface-hover: var(--atlas-surface-hover);
+  --color-atlas-surface-active: var(--atlas-surface-active);
+  --color-atlas-border: var(--atlas-border);
+  --color-atlas-border-subtle: var(--atlas-border-subtle);
+  --color-atlas-text: var(--atlas-text);
+  --color-atlas-text-muted: var(--atlas-text-muted);
+  --color-atlas-text-faint: var(--atlas-text-faint);
+  --color-atlas-accent: var(--atlas-accent);
+  --color-atlas-accent-bright: var(--atlas-accent-bright);
+  --color-atlas-accent-muted: var(--atlas-accent-muted);
+  --color-atlas-success: var(--atlas-success);
+  --color-atlas-info: var(--atlas-info);
+  --color-atlas-warning: var(--atlas-warning);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--atlas-border) transparent;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--atlas-bg);
+  color: var(--atlas-text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--atlas-accent-muted);
+  color: var(--atlas-accent-bright);
 }
