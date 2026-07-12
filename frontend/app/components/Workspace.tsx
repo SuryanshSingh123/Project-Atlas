@@ -11,17 +11,25 @@ import { Task } from "../types/task";
 
 export default function Workspace() {
   const [prompt, setPrompt] = useState("");
-  const [currentMission, setCurrentMission] = useState("");
-  const [currentJobId, setCurrentJobId] = useState("");
-  const [jobStatus, setJobStatus] = useState("");
+const [currentMission, setCurrentMission] = useState("");
+//  const [currentJobId, setCurrentJobId] = useState("");
+const [jobStatus, setJobStatus] = useState("");
   const [tasks, setTasks] = useState<Task[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function submitMission() {
+  async function sendMessage() {
     if (!prompt.trim() || isSubmitting) return;
 
     const userPrompt = prompt.trim();
+          setPrompt("");
+    const conversation = [
+      ...messages,
+      {
+        role: "user",
+        content: userPrompt,
+      },
+    ];
     setIsSubmitting(true);
 
     setMessages((previous) => [
@@ -35,58 +43,33 @@ export default function Workspace() {
     ]);
 
     try {
-      const response = await fetch("http://localhost:3001/api/jobs", {
+      const response = await fetch("http://localhost:3001/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: userPrompt }),
+        body: JSON.stringify({ messages: conversation, }),
       });
 
-      const data = await response.json();
-      setCurrentMission(userPrompt);
-      setCurrentJobId(data.jobId);
-      setJobStatus(data.status);
-      setPrompt("");
+const data = await response.json();
+console.log("Frontend received:", data);
+    setMessages(previous => [
+        ...previous,
+        {
+            id: crypto.randomUUID(),
+            role: "assistant",
+            content: data.reply,
+            createdAt: new Date(),
+        }
+    ]);
+
     } finally {
       setIsSubmitting(false);
     }
   }
 
-  useEffect(() => {
-    if (!currentJobId) return;
 
-    let interval: ReturnType<typeof setInterval>;
 
-    async function pollJob() {
-      const response = await fetch(
-        `http://localhost:3001/api/jobs/${currentJobId}`,
-      );
-      const job = await response.json();
+  const isProcessing = isSubmitting
 
-      setJobStatus(job.status);
-      setTasks(job.tasks ?? []);
-
-      if (job.status === "completed") {
-        clearInterval(interval);
-        setMessages((previous) => [
-          ...previous,
-          {
-            id: crypto.randomUUID(),
-            role: "assistant",
-            content: `I've generated a roadmap with ${job.tasks.length} implementation tasks. Expand the panel on the left to review them.`,
-            createdAt: new Date(),
-          },
-        ]);
-      }
-    }
-
-    pollJob();
-    interval = setInterval(pollJob, 1000);
-
-    return () => clearInterval(interval);
-  }, [currentJobId]);
-
-  const isProcessing =
-    jobStatus === "queued" || jobStatus === "running" || isSubmitting;
 
   return (
     <section className="flex min-w-0 flex-1">
@@ -112,7 +95,7 @@ export default function Workspace() {
         <PromptInput
           value={prompt}
           onChange={setPrompt}
-          onSubmit={submitMission}
+          onSubmit={sendMessage}
           disabled={isProcessing}
         />
       </div>

@@ -1,13 +1,18 @@
+import type { ChatMessage } from "../models/chat.js";
+
 export async function createChatCompletion(
   systemPrompt: string,
-  userPrompt: string
+  messages: ChatMessage[],
+  model?:string
 ): Promise<string> {
-  const apiKey = process.env.OPENROUTER_API_KEY;
-
+const apiKey = process.env.OPENROUTER_API_KEY;
+const requestedModel =
+  model ??
+  process.env.ATLAS_MODEL ??
+  "nvidia/nemotron-3-super-120b-a12b:free";
   if (!apiKey) {
     throw new Error("OPENROUTER_API_KEY is missing.");
   }
-    const model = process.env.PLANNER_MODEL ?? "/openrouter/free";
   const response = await fetch(
   "https://openrouter.ai/api/v1/chat/completions",
   {
@@ -17,16 +22,13 @@ export async function createChatCompletion(
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model,
+      model: requestedModel,
       messages: [
         {
           role: "system",
           content: systemPrompt,
         },
-        {
-          role: "user",
-          content: userPrompt,
-        },
+        ...messages,
       ],
     }),
   }
@@ -34,7 +36,7 @@ export async function createChatCompletion(
     
     const data = await response.json();
 
-    console.log(data);
+    console.log(data.choices[0].message.content);
     
     if (!response.ok) {
     console.error(data);

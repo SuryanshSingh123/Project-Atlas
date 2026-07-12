@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@plugin "@tailwindcss/typography";
 :root {
   --atlas-bg: #090c14;
   --atlas-bg-elevated: #0f1420;

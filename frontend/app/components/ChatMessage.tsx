@@ -1,4 +1,6 @@
 import type { Message } from "../types/message";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface ChatMessageProps {
   message: Message;
@@ -16,7 +18,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             : "bg-atlas-surface-active text-atlas-text-muted"
         }`}
       >
-        {isUser ? "You" : "A"}
+        {isUser ? "You" : "Atlas"}
       </div>
 
       <div
@@ -26,7 +28,11 @@ export default function ChatMessage({ message }: ChatMessageProps) {
             : "rounded-tl-md border border-atlas-border-subtle bg-atlas-assistant-bubble text-atlas-text"
         }`}
       >
-        {message.content}
+      <div className="prose prose-invert max-w-none">
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {message.content}
+        </ReactMarkdown>  
+      </div>
       </div>
     </div>
   );
