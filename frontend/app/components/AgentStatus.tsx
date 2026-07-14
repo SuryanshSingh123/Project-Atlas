@@ -1,4 +1,4 @@
-type AgentState = "active" | "idle" | "standby";
+type AgentState = "active" | "idle" | "standby" | "running";
 
 type AgentStatusProps = {
   name: string;
@@ -14,6 +14,11 @@ const stateStyles: Record<
     dot: "bg-atlas-success shadow-[0_0_8px_rgba(62,207,142,0.5)]",
     ring: "ring-atlas-success/20",
     bg: "bg-atlas-surface ring-1 ring-atlas-success/10",
+  },
+  running: {
+    dot: "bg-atlas-accent shadow-[0_0_8px_rgba(201,149,74,0.5)]",
+    ring: "ring-atlas-accent/20",
+    bg: "bg-atlas-surface ring-1 ring-atlas-accent/10",
   },
   idle: {
     dot: "bg-atlas-info shadow-[0_0_8px_rgba(91,159,212,0.4)]",

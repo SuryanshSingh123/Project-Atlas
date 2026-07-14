@@ -1,7 +1,7 @@
 const projects = [
-  { name: "Atlas", active: true },
-  { name: "Portfolio", active: false },
-  { name: "MEXT Prep", active: false },
+  { name: "Project 1", active: true },
+  { name: "Project 2", active: false },
+  { name: "Project 3", active: false },
 ];
 
 export default function Sidebar() {

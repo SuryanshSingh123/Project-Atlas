@@ -1,8 +1,9 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import chatRoutes from "./routes/chat.routes.js";
+import chatRouter from "./routes/chat.routes.js";
 import jobsRouter from "./routes/jobs.js";
+import agentRouter from "./routes/agent.js";
 
 const app = express();
 console.log(
@@ -12,8 +13,9 @@ console.log(
 );
 app.use(cors());
 app.use(express.json());
-app.use("/api/chat", chatRoutes);
+app.use("/api/chat", chatRouter);
 app.use("/api/jobs", jobsRouter);
+app.use("/api/agents", agentRouter);
 app.get("/health", (_, res) => {
   res.json({
     status: "ok",

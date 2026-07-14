@@ -10,13 +10,13 @@ import type { Message } from "../types/message";
 import { Task } from "../types/task";
 
 export default function Workspace() {
-  const [prompt, setPrompt] = useState("");
+const [prompt, setPrompt] = useState("");
 const [currentMission, setCurrentMission] = useState("");
-//  const [currentJobId, setCurrentJobId] = useState("");
+const [currentJobId, setCurrentJobId] = useState("");
 const [jobStatus, setJobStatus] = useState("");
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+const [tasks, setTasks] = useState<Task[]>([]);
+const [messages, setMessages] = useState<Message[]>([]);
+const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function sendMessage() {
     if (!prompt.trim() || isSubmitting) return;
@@ -61,15 +61,44 @@ console.log("Frontend received:", data);
         }
     ]);
 
+    if (data.action === "plan") {
+      setCurrentMission(data.mission);
+      setCurrentJobId(data.jobId);
+      setJobStatus(data.status);
+    }
+
     } finally {
       setIsSubmitting(false);
     }
   }
 
+  const isProcessing = isSubmitting;
 
+  useEffect(() => {
+    if (!currentJobId) return;
 
-  const isProcessing = isSubmitting
+    let interval: ReturnType<typeof setInterval>;
 
+    async function pollJob() {
+      const response = await fetch(
+        `http://localhost:3001/api/jobs/${currentJobId}`,
+      );
+      const job = await response.json();
+
+      setJobStatus(job.status);
+      setTasks(job.tasks ?? []);
+
+      if (job.status === "completed") {
+        clearInterval(interval);
+        
+      }
+    }
+
+    pollJob();
+    interval = setInterval(pollJob, 1000);
+
+    return () => clearInterval(interval);
+}, [currentJobId]);
 
   return (
     <section className="flex min-w-0 flex-1">

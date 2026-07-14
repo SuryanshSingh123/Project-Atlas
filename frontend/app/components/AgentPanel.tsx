@@ -1,13 +1,26 @@
-import AgentStatus from "./AgentStatus";
+"use client";
 
-const agents = [
-  { name: "General", status: "Active", state: "active" as const },
-  { name: "Planner", status: "Idle", state: "idle" as const },
-  { name: "Researcher", status: "Standby", state: "standby" as const },
-  { name: "Builder", status: "Standby", state: "standby" as const },
-];
+import { useEffect, useState } from "react";
+import AgentStatus from "./AgentStatus";
+import type { Agent } from "../types/agent.ts";
 
 export default function AgentPanel() {
+  const [agents, setAgents] = useState<Agent[]>([]);
+
+  useEffect(() => {
+    async function fetchAgents() {
+      const response = await fetch("http://localhost:3001/api/agents");
+      const data = await response.json();
+      setAgents(data);
+    }
+
+    fetchAgents();
+
+    const interval = setInterval(fetchAgents, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <aside className="flex w-72 shrink-0 flex-col border-l border-atlas-border-subtle bg-atlas-bg-elevated">
       <div className="border-b border-atlas-border-subtle px-5 py-5">
@@ -22,7 +35,7 @@ export default function AgentPanel() {
           <AgentStatus
             key={agent.name}
             name={agent.name}
-            status={agent.status}
+            status={agent.activity}
             state={agent.state}
           />
         ))}

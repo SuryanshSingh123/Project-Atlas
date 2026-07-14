@@ -1,32 +1,33 @@
 import type { Job } from "../models/job.js";
 import { generateTasks } from "./planner.service.js";
+
 const jobs = new Map<string, Job>();
 
 export async function createJob(prompt: string): Promise<Job> {
-  const tasks = await generateTasks(prompt);
   const job: Job = {
     id: `job_${Date.now()}`,
     prompt,
     status: "queued",
     createdAt: new Date(),
-    tasks,
+    tasks: [],
   };
 
   jobs.set(job.id, job);
-  setTimeout(() => {
-  const currentJob = jobs.get(job.id);
 
-  if (!currentJob) return;
+  (async () => {
+    try {
+      job.status = "running";
 
-  currentJob.status = "running";
-}, 2000);
-setTimeout(() => {
-  const currentJob = jobs.get(job.id);
+      job.tasks = await generateTasks(job.prompt);
 
-  if (!currentJob) return;
+      job.status = "completed";
+    } catch (error) {
+      console.error(error);
 
-  currentJob.status = "completed";
-}, 5000);
+      job.status = "failed";
+    }
+  })();
+
   return job;
 }
 
